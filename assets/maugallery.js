@@ -14,12 +14,12 @@
       $.fn.mauGallery.listeners(options);
 
       $(this)
-        .children(".gallery-item")
+        .children('.gallery-item')
         .each(function (index) {
           $.fn.mauGallery.methods.responsiveImageItem($(this));
           $.fn.mauGallery.methods.moveItemInRowWrapper($(this));
           $.fn.mauGallery.methods.wrapItemInColumn($(this), options.columns);
-          var theTag = $(this).data("gallery-tag");
+          var theTag = $(this).data('gallery-tag');
           if (
             options.showTags &&
             theTag !== undefined &&
@@ -45,39 +45,40 @@
     lightBox: true,
     lightboxId: null,
     showTags: true,
-    tagsPosition: "bottom",
+    tagsPosition: 'bottom',
     navigation: true,
   };
   $.fn.mauGallery.listeners = function (options) {
-    $(".gallery-item").on("click", function () {
-      if (options.lightBox && $(this).prop("tagName") === "IMG") {
+    $('.gallery-item').on('click', function () {
+      if (options.lightBox && $(this).prop('tagName') === 'IMG') {
         $.fn.mauGallery.methods.openLightBox($(this), options.lightboxId);
       } else {
         return;
       }
     });
 
-    $(".gallery").on("click", ".nav-link", $.fn.mauGallery.methods.filterByTag);
-    $(".gallery").on("click", ".mg-prev", () =>
+    $('.gallery').on('click', '.nav-link', $.fn.mauGallery.methods.filterByTag);
+    $('.gallery').on('click', '.mg-prev', () =>
       $.fn.mauGallery.methods.prevImage(options.lightboxId)
     );
-    $(".gallery").on("click", ".mg-next", () =>
+    $('.gallery').on('click', '.mg-next', () =>
       $.fn.mauGallery.methods.nextImage(options.lightboxId)
     );
   };
   $.fn.mauGallery.methods = {
     createRowWrapper(element) {
-      if (!element.children().first().hasClass("row")) {
+      if (!element.children().first().hasClass('row')) {
         element.append('<div class="gallery-items-row row"></div>');
       }
     },
+
     wrapItemInColumn(element, columns) {
       if (columns.constructor === Number) {
         element.wrap(
           `<div class='item-column mb-4 col-${Math.ceil(12 / columns)}'></div>`
         );
       } else if (columns.constructor === Object) {
-        var columnClasses = "";
+        var columnClasses = '';
         if (columns.xs) {
           columnClasses += ` col-${Math.ceil(12 / columns.xs)}`;
         }
@@ -100,91 +101,102 @@
         );
       }
     },
+
     moveItemInRowWrapper(element) {
-      element.appendTo(".gallery-items-row");
+      element.appendTo('.gallery-items-row');
     },
+
     responsiveImageItem(element) {
-      if (element.prop("tagName") === "IMG") {
-        element.addClass("img-fluid");
+      if (element.prop('tagName') === 'IMG') {
+        element.addClass('img-fluid');
       }
     },
+
     openLightBox(element, lightboxId) {
       $(`#${lightboxId}`)
-        .find(".lightboxImage")
-        .attr("src", element.attr("src"));
-      $(`#${lightboxId}`).modal("toggle");
+        .find('.lightboxImage')
+        .attr('src', element.attr('src'));
+      $(`#${lightboxId}`).modal('toggle');
     },
+
     prevImage() {
       let activeImage = null;
-      $("img.gallery-item").each(function () {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
+      $('img.gallery-item').each(function () {
+        if ($(this).attr('src') === $('.lightboxImage').attr('src')) {
           activeImage = $(this);
         }
       });
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
+      let activeTag = $('.tags-bar span.active-tag').data('images-toggle');
       let imagesCollection = [];
-      if (activeTag === "all") {
-        $(".item-column").each(function () {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+      if (activeTag === 'all') {
+        $('.item-column').each(function () {
+          if ($(this).children('img').length) {
+            imagesCollection.push($(this).children('img'));
           }
         });
       } else {
-        $(".item-column").each(function () {
-          if ($(this).children("img").data("gallery-tag") === activeTag) {
-            imagesCollection.push($(this).children("img"));
+        $('.item-column').each(function () {
+          if ($(this).children('img').data('gallery-tag') === activeTag) {
+            imagesCollection.push($(this).children('img'));
           }
         });
       }
       let index = 0,
-        next = null;
+        prev = null;
 
       $(imagesCollection).each(function (i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+        if ($(activeImage).attr('src') === $(this).attr('src')) {
           index = i;
         }
       });
-      next =
-        imagesCollection[index] ||
+      prev =
+        imagesCollection[index - 1] ??
         imagesCollection[imagesCollection.length - 1];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+      $('.lightboxImage').attr('src', $(prev).attr('src'));
     },
+
     nextImage() {
       let activeImage = null;
-      $("img.gallery-item").each(function () {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
+      $('img.gallery-item').each(function () {
+        if ($(this).attr('src') === $('.lightboxImage').attr('src')) {
           activeImage = $(this);
         }
       });
-      let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
+
+      let activeTag = $('.tags-bar span.active-tag').data('images-toggle');
+
       let imagesCollection = [];
-      if (activeTag === "all") {
-        $(".item-column").each(function () {
-          if ($(this).children("img").length) {
-            imagesCollection.push($(this).children("img"));
+      if (activeTag === 'all') {
+        $('.item-column').each(function () {
+          if ($(this).children('img').length) {
+            imagesCollection.push($(this).children('img'));
           }
         });
       } else {
-        $(".item-column").each(function () {
-          if ($(this).children("img").data("gallery-tag") === activeTag) {
-            imagesCollection.push($(this).children("img"));
+        $('.item-column').each(function () {
+          if ($(this).children('img').data('gallery-tag') === activeTag) {
+            imagesCollection.push($(this).children('img'));
           }
         });
       }
+
       let index = 0,
         next = null;
 
       $(imagesCollection).each(function (i) {
-        if ($(activeImage).attr("src") === $(this).attr("src")) {
+        if ($(activeImage).attr('src') === $(this).attr('src')) {
           index = i;
         }
       });
-      next = imagesCollection[index] || imagesCollection[0];
-      $(".lightboxImage").attr("src", $(next).attr("src"));
+
+      next = imagesCollection[index + 1] ?? imagesCollection[0];
+
+      $('.lightboxImage').attr('src', $(next).attr('src'));
     },
+
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
-        lightboxId ? lightboxId : "galleryLightbox"
+        lightboxId ? lightboxId : 'galleryLightbox'
       }" tabindex="-1" role="dialog" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -206,7 +218,6 @@
             </div>`);
     },
 
-    // Fonction
     showItemTags(gallery, position, tags) {
       var tagItems =
         '<li class="nav-item"><span class="nav-link active active-tag"  data-images-toggle="all">Tous</span></li>';
@@ -216,31 +227,33 @@
       });
       var tagsRow = `<ul class="my-4 tags-bar nav nav-pills">${tagItems}</ul>`;
 
-      if (position === "bottom") {
+      if (position === 'bottom') {
         gallery.append(tagsRow);
-      } else if (position === "top") {
+      } else if (position === 'top') {
         gallery.prepend(tagsRow);
       } else {
         console.error(`Unknown tags position: ${position}`);
       }
     },
 
-    // Fonction
     filterByTag() {
-      if ($(this).hasClass("active-tag")) {
+      if ($(this).hasClass('active-tag')) {
         return;
       }
-      $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
+      $('.active-tag').removeClass('active active-tag');
+      $(this).addClass('active active-tag');
+      // Ajout de la classe 'active' qui est la classe utilisée en css, résout le problème de highlighting de la catégorie.
+      // TODO: Supprimer une des deux classes si pas utilisée ailleurs
+      // active-tag est utilisé par prevImage() et nextImage()
 
-      var tag = $(this).data("images-toggle");
+      var tag = $(this).data('images-toggle');
 
-      $(".gallery-item").each(function () {
-        $(this).parents(".item-column").hide();
-        if (tag === "all") {
-          $(this).parents(".item-column").show(300);
-        } else if ($(this).data("gallery-tag") === tag) {
-          $(this).parents(".item-column").show(300);
+      $('.gallery-item').each(function () {
+        $(this).parents('.item-column').hide();
+        if (tag === 'all') {
+          $(this).parents('.item-column').show(300);
+        } else if ($(this).data('gallery-tag') === tag) {
+          $(this).parents('.item-column').show(300);
         }
       });
     },
