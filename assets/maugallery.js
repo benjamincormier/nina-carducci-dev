@@ -40,6 +40,7 @@
       $(this).fadeIn(500);
     });
   };
+
   $.fn.mauGallery.defaults = {
     columns: 3,
     lightBox: true,
@@ -48,6 +49,7 @@
     tagsPosition: 'bottom',
     navigation: true,
   };
+
   $.fn.mauGallery.listeners = function (options) {
     $('.gallery-item').on('click', function () {
       if (options.lightBox && $(this).prop('tagName') === 'IMG') {
@@ -58,6 +60,7 @@
     });
 
     $('.gallery').on('click', '.nav-link', $.fn.mauGallery.methods.filterByTag);
+
     $('.gallery').on('click', '.mg-prev', () =>
       $.fn.mauGallery.methods.prevImage(options.lightboxId)
     );
