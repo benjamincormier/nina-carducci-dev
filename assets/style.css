@@ -3,7 +3,7 @@ body {
   margin: auto;
 }
 * {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
 }
 .top-header {
@@ -52,7 +52,7 @@ body {
 }
 
 .picture.left::before {
-  content: " ";
+  content: ' ';
   background-color: #e5975f;
   width: 374px;
   height: 329px;
@@ -80,7 +80,7 @@ body {
   font-size: 30px;
 }
 .about-me__introduction {
-  font-family: "Spectral";
+  font-family: 'Spectral';
   font-weight: 800;
   font-style: italic;
   width: 60%;
@@ -90,9 +90,9 @@ body {
   font-size: 14px;
 }
 
-#gallery {
-  /*	min-height: 100vh; */
-}
+/* #gallery {
+  min-height: 100vh;
+} */
 .title {
   text-align: center;
   padding-block: 2em;
@@ -116,7 +116,7 @@ body {
   padding: 0;
 }
 .item-column::after {
-  content: "";
+  content: '';
   display: block;
   padding-bottom: 100%;
 }
@@ -139,7 +139,7 @@ body {
 }
 
 .quote {
-  font-family: "Spectral";
+  font-family: 'Spectral';
   font-style: italic;
   width: 70%;
   margin: auto;
@@ -149,6 +149,8 @@ body {
   font-family: Spectral;
   font-style: italic;
   font-weight: 300;
+  font-size: 32px;
+  line-height: 38px;
 }
 .quote__author {
   font-family: Spectral;
@@ -162,7 +164,7 @@ body {
   position: relative;
 }
 #services .container::before {
-  content: " ";
+  content: ' ';
   background-color: #1c6474;
   position: absolute;
   width: 100%;
@@ -202,7 +204,7 @@ body {
   display: flex;
 }
 .picture.right::before {
-  content: " ";
+  content: ' ';
   background-color: #beb45a;
   width: 374px;
   height: 329px;
@@ -238,7 +240,7 @@ form textarea {
   font-size: 1.2em;
   margin-bottom: 20px;
 }
-input[type="submit"] {
+input[type='submit'] {
   background-color: #beb45a;
   padding: 0.5em 1em;
 }
